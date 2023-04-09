@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Usage: strip_license <file>"""
 import fileinput
 import re
 import sys
+import os
 
 license = """/*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,8 +25,8 @@ license = """/*
 
 
 def main():
-    files = sys.argv[1:] # get filename from command-line
-    for filename in files:
+    for filename in fileinput.input():
+        filename = filename[:-1] # strip \n
         with open(filename, 'r') as file:
            data = file.read().replace(license, '')
 
